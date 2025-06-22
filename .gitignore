@@ -18,7 +18,7 @@
 # vendor/
 
 # Go workspace file
-**/*.work*
+src/*.work*
 
 # env file
 .env
