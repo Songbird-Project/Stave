@@ -4,22 +4,26 @@ import (
 	"utils"
 
 	tea "github.com/charmbracelet/bubbletea"
+	"github.com/charmbracelet/lipgloss"
 	log "github.com/charmbracelet/log"
 )
 
 type model struct {
-	config utils.Config
-	page   int
+	config  utils.Config
+	style   utils.Style
+	page    int
+	content string
 }
 
-func InitialModel(config utils.Config) model {
+func InitialModel(config utils.Config, style utils.Style) model {
 	return model{
 		config: config,
+		style:  style,
 		page:   0,
 	}
 }
 
-func (m model) renderPage() string {
+func (m model) renderPage() {
 	order := m.config.General.Order
 	var page string
 
@@ -34,7 +38,7 @@ func (m model) renderPage() string {
 		log.Fatal("An invalid page name was found. Aborting.")
 	}
 
-	return page
+	m.content = page
 }
 
 func (m model) Init() tea.Cmd {
@@ -54,5 +58,7 @@ func (m model) Update(msg tea.Msg) (tea.Model, tea.Cmd) {
 }
 
 func (m model) View() string {
-	return m.renderPage()
+	style := utils.Stylise(m.style, m.config)
+
+	return style.Render(m.content)
 }

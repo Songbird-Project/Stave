@@ -19,7 +19,9 @@ func main() {
 	})
 
 	config := utils.GetConfig()
-	program := tea.NewProgram(pages.InitialModel(config), tea.WithAltScreen())
+	style := utils.GetStyle(config)
+
+	program := tea.NewProgram(pages.InitialModel(config, style), tea.WithAltScreen())
 	if _, err := program.Run(); err != nil {
 		logger.Fatal(err)
 		os.Exit(1)

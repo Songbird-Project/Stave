@@ -1,5 +1,7 @@
 package pages
 
+import ()
+
 func (m model) Welcome() string {
-	return ""
+	return "lorem ipsum"
 }
