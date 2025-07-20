@@ -12,3 +12,5 @@
 .env
 
 *.csv
+opt-deps
+deps
