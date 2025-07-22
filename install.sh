@@ -36,7 +36,7 @@ location() {
 	locale-gen
 	echo "LANG=$LC" >> /etc/locale.conf
 }
-filesystem() {}
+# filesystem() {}
 user() {
 	echo "$APASSWD" | passwd -s
 	useradd $USERNAME
@@ -47,6 +47,9 @@ user() {
 	fi
 }
 # bootloader() {}
+# refind() {}
+# grub() {}
+# limine() {}
 
 # Welcome
 clear
@@ -259,6 +262,12 @@ gum style \
 sleep 0.25
 
 echo "$BOOTLOADER" > opt-deps
+
+printi "Elevating priveleges..."
+
+if $DESTRUCTIVE; then
+	su
+fi
 
 printi "Installing base packages..."
 
