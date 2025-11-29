@@ -49,6 +49,7 @@ impl<'a> App<'a> {
 
         loop {
             terminal.draw(|frame| self.draw(frame))?;
+
             if self.input {
                 match event::read()?.into() {
                     Input { key: Key::Esc, .. } => {
@@ -76,8 +77,12 @@ impl<'a> App<'a> {
                 if key.kind == KeyEventKind::Press && !self.input {
                     match key.code {
                         KeyCode::Esc | KeyCode::Char('q') => return Ok(()),
-                        KeyCode::Tab => self.tab += up(self.tab, 2),
-                        KeyCode::BackTab => self.tab -= down(self.tab),
+                        KeyCode::Tab => {
+                            self.tab += up(self.tab, 2);
+                        }
+                        KeyCode::BackTab => {
+                            self.tab -= down(self.tab);
+                        }
                         _ => {}
                     }
                 }
